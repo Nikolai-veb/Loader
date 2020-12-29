@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>List Images</h1>
+<p><a href="{% url "created_image" %}" class=" btn btn-success">Add image</a></p>
+<div class="container">
+    <div class="row">
+        {% for images in images_list %}
+        <div class="col-sm">
+            <a href="{% url 'detail_image' images.id %}">{{ images }}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

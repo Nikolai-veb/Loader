@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <form action="{% url 'resizing_handler' image.id %}" method="post" class="mt-4">
+                {{form.as_p}}
+                {% csrf_token %}
+
+                <button type="submit" class=" btn btn-success ">
+                    Отправить
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

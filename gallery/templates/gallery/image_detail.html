@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Detail Image</h1>
+<div class="container">
+    <div class="row">
+        <div>
+            <h2>{{ image_detail.title }}</h2>
+            <p>
+                <a href="{% url 'resizing_image' image_detail.slug %}" class="btn btn-success">Resizing Image</a>
+            </p>
+            <div>
+                <img src="{% if image_detail.image %}{{ image_detail.image.url }}{% elif image_detail.url %}{{ image_detail.url.url }}{% endif %}" alt="{{ image_detail.title }}" feight={{image_detail.image_height}} width={{image_detail.image_width}}>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
