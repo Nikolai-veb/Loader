@@ -3,8 +3,11 @@
 # Install
 
 git clone https://github.com/Nikolai-veb/Loader.git
+
 cd Loader
+
 source venv/bin/activate
+
 pip install -r requestments.txt
 
 python manage.py runserver
