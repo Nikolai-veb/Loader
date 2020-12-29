@@ -7,7 +7,6 @@ from PIL import Image
 
 class Images(models.Model):
     """"Model Images"""
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField("Заголовок", max_length=300)
     image = models.ImageField("Изображение",
                               upload_to='images/',

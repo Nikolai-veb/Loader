@@ -36,12 +36,14 @@ class CreateImageView(CreateView):
 
 
 def resizing(request, slug):
+    """Form Resizing"""
     form = ResizingImageForm
     image = get_object_or_404(Images, slug=slug)
     return render(request, "gallery/resizing_image.html", {"form": form, "image": image})
 
 
 def resizing_handler(request, pk):
+    """Resizing Image"""
     if request.method == 'POST':
         form = ResizingImageForm(request.POST)
         image = get_object_or_404(Images, id=pk)
@@ -52,13 +54,4 @@ def resizing_handler(request, pk):
         image.image_height = height
     return render(request, 'gallery/image_detail.html', {'image_detail': image})
 
-# def create_image(request):
-#     if request.method == 'POST':
-#         form = ImageCreatedForm(data=request.POST, files=request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Изображение скаченно успешно')
-#         return render(request, "gallery/image_list.html", {"form": form})
-#     else:
-#         form = ImageCreatedForm()
-#         return render(request, "gallery/create_image.html", {"form": form})
+
