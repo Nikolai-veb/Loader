@@ -17,11 +17,11 @@ class Images(models.Model):
     url = models.URLField(blank=True)
     created = models.DateField(auto_now_add=True)
     slug = models.SlugField(max_length=400, db_index=True, unique=True)
-    image_width = models.PositiveIntegerField(null=True, blank=True, editable=False, default='400')
-    image_height = models.PositiveIntegerField(null=True, blank=True, editable=False, default='400')
+    image_width = models.PositiveIntegerField(null=True, blank=True, editable=False, default='600')
+    image_height = models.PositiveIntegerField(null=True, blank=True, editable=False, default='600')
 
     def get_absolute_url(self):
-        return reverse("image_detail", kwargs={"slug": self.slug})
+        return reverse("detail_image", kwargs={"pk": self.id})
 
     class Meta:
         verbose_name = 'Изображение'

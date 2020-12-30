@@ -49,7 +49,6 @@ def resizing_handler(request, pk):
         image = get_object_or_404(Images, id=pk)
         width = request.POST['width']
         height = request.POST['height']
-        print(image.image_width)
         image.image_width = width
         image.image_height = height
     return render(request, 'gallery/image_detail.html', {'image_detail': image})

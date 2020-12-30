@@ -1,3 +1,5 @@
+from urllib.error import URLError
+
 from django import forms
 from .models import Images
 from django.core.files.base import ContentFile
