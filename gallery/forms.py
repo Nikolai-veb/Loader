@@ -23,6 +23,17 @@ class ImageCreatedForm(forms.ModelForm):
             "image": forms.FileInput(attrs={"class": ""}),
         }
 
+    def is_valid(self):
+        image = super(ImageCreatedForm, self).is_valid()
+        image_url = self.cleaned_data['url']
+        image_image = self.cleaned_data['image']
+        if image_url and image_image:
+            raise AttributeError("Don't allow input of utl and image fields at the same time !!!!!")
+        elif image_url == '' and image_image is None:
+            raise AttributeError("No image links entered !!!!!")
+        else:
+            return self.is_bound
+
     def save(self, force_insert=False, force_update=False, commit=True):
         image = super(ImageCreatedForm, self).save(commit=False)
         image_url = self.cleaned_data['url']
