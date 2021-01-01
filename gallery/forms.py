@@ -24,6 +24,7 @@ class ImageCreatedForm(forms.ModelForm):
         }
 
     def is_valid(self):
+        print(self.__dir__())
         image = super(ImageCreatedForm, self).is_valid()
         image_url = self.cleaned_data['url']
         image_image = self.cleaned_data['image']

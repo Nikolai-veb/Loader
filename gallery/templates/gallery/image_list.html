@@ -5,10 +5,11 @@
 <div class="container">
     <div class="row">
         {% for images in images_list %}
-        <div class="col-sm">
+        <div class="col">
             <a href="{% url 'detail_image' images.id %}">{{ images }}</a>
         </div>
         {% endfor %}
+         <div class="w-100"></div>
     </div>
 </div>
 {% endblock %}
