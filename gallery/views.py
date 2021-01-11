@@ -35,22 +35,30 @@ class CreateImageView(CreateView):
     success_url = reverse_lazy('image_list')
 
 
-def resizing(request, slug):
-    """Form Resizing"""
-    form = ResizingImageForm
-    image = get_object_or_404(Images, slug=slug)
-    return render(request, "gallery/resizing_image.html", {"form": form, "image": image})
+class ResizingImageView(DetailView):
+    """Resizing Image Form"""
+    model = Images
+    context_object_name = "image"
+    slug_field = "slug"
+    template_name = "gallery/resizing_image.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = ResizingImageForm()
+        return context
 
 
-def resizing_handler(request, pk):
-    """Resizing Image"""
-    if request.method == 'POST':
+class ResizingImageHandlerView(View):
+    """Handler Resizing Image"""
+
+    def post(self, request, pk):
+        """Resizing Image"""
         form = ResizingImageForm(request.POST)
         image = get_object_or_404(Images, id=pk)
         width = request.POST['width']
         height = request.POST['height']
         image.image_width = width
         image.image_height = height
-    return render(request, 'gallery/image_detail.html', {'image_detail': image})
+        return redirect(image.get_absolute_url())
 
 
