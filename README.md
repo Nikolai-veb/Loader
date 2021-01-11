@@ -8,7 +8,7 @@ cd Loader
 
 source venv/bin/activate
 
-pip install -r requestments.txt
+pip install -r requirements.txt
 
 python manage.py runserver
 
