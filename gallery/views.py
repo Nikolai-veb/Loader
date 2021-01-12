@@ -55,10 +55,9 @@ class ResizingImageHandlerView(View):
         """Resizing Image"""
         form = ResizingImageForm(request.POST)
         image = get_object_or_404(Images, id=pk)
-        width = request.POST['width']
-        height = request.POST['height']
-        image.image_width = width
-        image.image_height = height
-        return redirect(image.get_absolute_url())
+        if form.is_valid():
+            image.image_width = form.cleaned_data['width']
+            image.image_height = form.cleaned_data['height']
+        return render(request, 'gallery/image_detail.html', {"image_detail": image})
 
 
