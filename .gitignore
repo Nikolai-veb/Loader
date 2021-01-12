@@ -98,6 +98,7 @@ celerybeat-schedule
 media/
 *.pyc
 *.db
+db.sqlite3
 *.pid
 # django migrations
 **/migrations/**
