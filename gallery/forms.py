@@ -1,4 +1,4 @@
-from urllib.error import URLError
+from urllib.error import URLError, HTTPError
 
 from django import forms
 from .models import Images
@@ -24,14 +24,13 @@ class ImageCreatedForm(forms.ModelForm):
         }
 
     def is_valid(self):
-        print(self.__dir__())
         image = super(ImageCreatedForm, self).is_valid()
         image_url = self.cleaned_data['url']
         image_image = self.cleaned_data['image']
         if image_url and image_image:
-            raise AttributeError("Don't allow input of utl and image fields at the same time !!!!!")
+            print("Don't allow input of utl and image fields at the same time !!!!!")
         elif image_url == '' and image_image is None:
-            raise AttributeError("No image links entered !!!!!")
+            print('Empty fields: enter a link or select a file !!!')
         else:
             return self.is_bound
 
@@ -39,11 +38,13 @@ class ImageCreatedForm(forms.ModelForm):
         image = super(ImageCreatedForm, self).save(commit=False)
         image_url = self.cleaned_data['url']
 
-        if image_url:
-            image_name = '{}.{}'.format(slugify(image.title), image_url.split('.', 1)[1].lower())
-            response = request.urlopen(image_url)
-            image.image.save(image_name, ContentFile(response.read()), save=False)
-
-        if commit:
-            image.save()
+        try:
+            if image_url:
+                image_name = '{}.{}'.format(slugify(image.title), image_url.split('.', 1)[1].lower())
+                response = request.urlopen(image_url)
+                image.image.save(image_name, ContentFile(response.read()), save=False)
+                if commit:
+                    image.save()
+        except HTTPError:
+            print("This url don't correct")
         return image
