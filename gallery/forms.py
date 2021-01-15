@@ -28,9 +28,9 @@ class ImageCreatedForm(forms.ModelForm):
         image_url = self.cleaned_data['url']
         image_image = self.cleaned_data['image']
         if image_url and image_image:
-            print("Don't allow input of utl and image fields at the same time !!!!!")
+            raise forms.ValidationError("Don't allow input of utl and image fields at the same time !!!!!")
         elif image_url == '' and image_image is None:
-            print('Empty fields: enter a link or select a file !!!')
+            raise forms.ValidationError('Empty fields: enter a link or select a file !!!')
         else:
             return self.is_bound
 
@@ -46,5 +46,5 @@ class ImageCreatedForm(forms.ModelForm):
                 if commit:
                     image.save()
         except HTTPError:
-            print("This url don't correct")
+            raise forms.ValidationError("This url don't correct")
         return image
